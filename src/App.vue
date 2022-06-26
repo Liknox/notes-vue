@@ -1,41 +1,29 @@
 <template>
-    <div class="wrappper">
-        <div class="wrapper-content">
-            <section>
-                <div class="container">
-                    <h1>{{ title }}</h1>
+	<div class="wrappper">
+		<div class="wrapper-content">
+			<section>
+				<div class="container">
+					<h1>{{ title }}</h1>
 
-                    <message v-if="message" :message="message"/>
-                    
-                    <!-- new note -->
-                    <div class="new-note">
-                        <input v-model="note.title" type="text" />
-                        <textarea v-model="note.descr"></textarea>
-                        <button @click="addNote">New note</button>
-                    </div>
+					<message :message="message" v-if="message" />
 
-                    <!-- note list -->
-                    <div class="notes">
-                        <div class="note" v-for="(note, index) in notes" :key="index">
-                            <div class="note-header">
-                                <p>{{ note.title }}</p>
-                            </div>
-                            <div class="note-body">
-                                <p>{{ note.descr }}</p>
-                                <span> {{ note.date }} </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
+					<newNote :note="note" @addNotee="addNote" />
+
+					<notes :notes="notes" />
+				</div>
+			</section>
+		</div>
+	</div>
 </template>
 <script>
-import message from "@/components/message.vue"
+import newNote from "@/components/NewNote.vue/"
+import message from "@/components/Message.vue/"
+import notes from "@/components/Notes.vue/"
 export default {
 	components: {
+		notes,
 		message,
+		newNote,
 	},
 	data() {
 		return {
@@ -67,13 +55,13 @@ export default {
 	methods: {
 		addNote() {
 			// console.log(this.note)
-            
-            // for th
+
+			// for th
 
 			let {title, descr} = this.note
 
 			if (title === "") {
-				this.message = "title can't be empty"
+				this.message = "Title can't be empty"
 				return false
 			}
 			this.notes.push({
